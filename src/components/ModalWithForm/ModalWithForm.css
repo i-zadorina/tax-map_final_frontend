@@ -1,0 +1,72 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #0000003d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  font-family: "Grotesk", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.25;
+  font-weight: 700;
+}
+.modal_opened {
+  visibility: visible;
+}
+.modal__content {
+  background-color: #fff;
+  position: relative;
+  padding: 28px 28px 36px;
+  max-width: 496px;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 20px;
+  font-size: 16px;
+  line-height: 1.25;
+  font-weight: 700;
+  font-family: "Grotesk", Arial, sans-serif;
+}
+.modal__title {
+  margin: 0;
+  font-size: 1.2em;
+  line-height: 1.25;
+  padding-bottom: 24px;
+}
+.modal__close {
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background-image: url("../../assets/close.svg");
+  cursor: pointer;
+  background-color: transparent;
+}
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.modal__submit {
+  width: fit-content;
+  height: fit-content;
+  padding: 8px 16px;
+  margin: 8px 0 0;
+  background-color: #000000;
+  color: #fff;
+  border-radius: 4px;
+  border: none;
+  opacity: 1;
+}
+.modal__submit:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+.modal__submit_disabled {
+  opacity: 0.3;
+}
