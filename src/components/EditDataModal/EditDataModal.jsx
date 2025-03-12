@@ -32,7 +32,7 @@ function EditDataModal({
 
   return (
     <ModalWithForm
-      title="Change Data"
+      titleText="Edit data"
       name={"edit-data"}
       buttonText={isLoading ? "Saving..." : "Save changes"}
       isOpen={isOpen}
@@ -41,13 +41,13 @@ function EditDataModal({
       activeModal={activeModal}
     >
       <label className="modal__label">
-        Annual Income *{" "}
+        Annual Income, $:{" "}
         <input
           className="modal__input"
           id="edit-income"
           type="text"
           name="income"
-          placeholder="Annual Income"
+          placeholder="Annual Income, $"
           minLength="2"
           maxLength="40"
           required
@@ -65,7 +65,7 @@ function EditDataModal({
             className="modal__radio-input"
             value="single"
             checked={values.status === "single"}
-            onChange={handleStatus}
+            onChange={handleChange}
           />{" "}
           Single
         </label>
@@ -77,7 +77,7 @@ function EditDataModal({
             className="modal__radio-input"
             value="married"
             checked={values.status === "married"}
-            onChange={handleStatus}
+            onChange={handleChange}
           />{" "}
           Married
         </label>

@@ -7,12 +7,19 @@
   background-color: rgba(255, 255, 255, 0.8);
   background-blend-mode: overlay;
 }
-
+.page--no-bg {
+  background-image: none;
+}
 .page__content {
   max-width: 1360px;
   margin: 0 auto;
-  padding: 1.5em 2.5em;
+  padding: 0 2.5em;
   line-height: 1.2;
   font-weight: 700;
   font-family: "Grotesk", Arial, sans-serif;
+}
+@media screen and (max-width: 768px) {
+  .page__content {
+    padding: 1em 1em;
+  }
 }

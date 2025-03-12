@@ -13,19 +13,23 @@ const Register = ({
   const { values, handleChange } = useForm({
     email: "",
     password: "",
-    income: "",
+    income: 0,
     status: "",
   });
+
+  const handleChangeNumber = (e) => {
+    const { name, value } = e.target;
+    handleChange({
+      target: {
+        name,
+        value: name === "income" ? Number(value) || 0 : value,
+      },
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     handleRegistration(values);
-    onClose();
-  };
-
-  const handleStatus = (e) => {
-    e.preventDefault();
-    handleStatus(values);
     onClose();
   };
 
@@ -64,13 +68,13 @@ const Register = ({
       </label>
       <label className="modal__input_type_name">
         <input
-          type="text"
+          type="number"
           className="modal__input"
           id="income"
-          placeholder="Annual income*"
+          placeholder="Annual income, $*"
           required
-          value={values.income}
-          onChange={handleChange}
+          value={values.income || ""}
+          onChange={handleChangeNumber}
           name="income"
         />
       </label>
@@ -83,8 +87,9 @@ const Register = ({
             name="status"
             className="modal__radio-input"
             value="single"
+            required
             checked={values.status === "single"}
-            onChange={handleStatus}
+            onChange={handleChange}
           />
           <span className="modal__radio-text">Single</span>
         </label>
@@ -95,8 +100,9 @@ const Register = ({
             name="status"
             className="modal__radio-input"
             value="married"
+            required
             checked={values.status === "married"}
-            onChange={handleStatus}
+            onChange={handleChange}
           />
           <span className="modal__radio-text">Married</span>
         </label>

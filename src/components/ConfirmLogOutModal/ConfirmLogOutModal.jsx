@@ -17,24 +17,26 @@ const ConfirmLogOutModal = ({ onClose, isOpen, handleLogOut }) => {
             <span className="confirm-logout-modal__text">
               Are you sure you want to logout?
             </span>
-            <span className="confirm-logout-modal__text">
-              This action is irreversible
+            <span className="confirm-logout-modal__text small">
+              This action is irreversible.
             </span>
           </p>
-          <button
-            className="confirm-logout-modal__delete"
-            type="submit"
-            onClick={handleLogOut}
-          >
-            {buttonConfirmText}
-          </button>
-          <button
-            className="confirm-logout-modal__cancel"
-            type="button"
-            onClick={onClose}
-          >
-            {buttonCancel}
-          </button>
+          <div className="confirm-logout-modal__buttons">
+            <button
+              className="confirm-logout-modal__delete"
+              type="submit"
+              onClick={handleLogOut}
+            >
+              {buttonConfirmText}
+            </button>
+            <button
+              className="confirm-logout-modal__cancel"
+              type="button"
+              onClick={onClose}
+            >
+              {buttonCancel}
+            </button>
+          </div>
         </div>
       </div>
     </div>

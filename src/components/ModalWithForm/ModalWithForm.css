@@ -21,10 +21,10 @@
   background-color: #fff;
   position: relative;
   padding: 28px 28px 36px;
-  max-width: 496px;
   box-sizing: border-box;
   width: 100%;
-  border-radius: 20px;
+  max-width: 345px;
+  border-radius: 15px;
   font-size: 16px;
   line-height: 1.25;
   font-weight: 700;
@@ -34,10 +34,11 @@
   margin: 0;
   font-size: 1.2em;
   line-height: 1.25;
-  padding-bottom: 24px;
+  padding-bottom: 18px;
 }
 .modal__close {
   position: absolute;
+  padding: 0;
   top: 20px;
   right: 28px;
   width: 20px;

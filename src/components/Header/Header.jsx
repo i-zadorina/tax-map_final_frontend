@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { Link } from "react-router-dom";
 import logo from "../../assets/favicon.ico";
 import "./Header.css";
 
@@ -16,7 +16,7 @@ function Header({
   return (
     <header className="header">
       <div className="header__left">
-        <Link to="/">
+        <Link to={"/map"}>
           <img className="header__logo" src={logo} alt="Logo" />
           <h1 className="header__title">TaxMap</h1>
         </Link>
@@ -24,9 +24,9 @@ function Header({
       <nav className="header__nav">
         {isLoggedIn ? (
           <div className="header__current-user">
-            <Link to="/profile" className="header__link">
-              <p className="header__username">{currentUser?.income}</p>
-            </Link>
+            <p className="header__income">
+              Annual income: {currentUser?.income}$
+            </p>
             <button
               className="header__button"
               type="button"

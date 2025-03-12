@@ -24,11 +24,13 @@
   font-size: 1.5rem;
   font-weight: 700;
   line-height: 1.2;
+  color: seagreen;
 }
 
 .header__auth {
   display: flex;
   align-items: center;
+  gap: 20px;
 }
 .header__nav {
   display: flex;
@@ -47,30 +49,33 @@
   color: #000;
   text-decoration: none;
 }
-.header__button {
+.header__income {
   margin: 0;
   padding: 0 0.5em;
+  align-content: center;
   font-family: "Cabinet Grotesk", Arial, Helvetica, sans-serif;
   font-weight: 600;
   font-size: 1rem;
   line-height: 1.2;
   border: none;
   background: none;
-  cursor: pointer;
-}
-.header__button:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
 .header__current-user {
   display: flex;
   flex-direction: row;
   gap: 20px;
 }
-.header__username {
+.header__button {
   margin: 0;
-  color: #000;
+  padding: 6px 10px;
+  color: darkgreen;
+  border-radius: 10px;
+  border-color: darkseagreen;
   text-decoration: none;
+  cursor: pointer;
+}
+.header__button:hover {
+  background-color: darkseagreen;
 }
 .header__avatar-placeholder {
   color: #fff;

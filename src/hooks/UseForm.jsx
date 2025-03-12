@@ -7,7 +7,7 @@ export function useForm(inputValues) {
     const { value, name } = event.target;
     setValues({
       ...values,
-      [name]: value,
+      [name]: name === "income" ? Number(value) || 0 : value,
     });
   };
   return { values, handleChange, setValues };

@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import Header from "./Header/Header.jsx";
 import WelcomePage from "./WelcomePage/WelcomePage.jsx";
-// import MapPage from "./MapPage/MapPage.jsx";
+import MapPage from "./MapPage/MapPage.tsx";
 import Footer from "./Footer/Footer";
 import Register from "./RegisterModal/RegisterModal.jsx";
 import Login from "./Login/LoginModal";
@@ -26,6 +32,8 @@ function App() {
   });
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const isMapPage = location.pathname === "/map";
 
   //Clicks
   const handleLoginClick = () => {
@@ -71,8 +79,9 @@ function App() {
 
   // SignUp, Login
   const handleRegistration = ({ email, password, income, status }) => {
+    const numberIncome = Number(income);
     auth
-      .signUp({ email, password, income, status })
+      .signUp({ email, password, income: numberIncome, status })
       .then(() => {
         handleLogin({ email, password });
         closeActiveModal();
@@ -86,15 +95,16 @@ function App() {
       return;
     }
     auth
-      .signIn({ email, password })
+      .login({ email, password })
       .then((res) => {
         setToken(res.token);
         return auth.getUserInfo(res.token);
       })
       .then((user) => {
-        setCurrentUser(user.data);
+        setCurrentUser({ ...user.data, income: Number(user.data.income) || 0 });
         setIsLoggedIn(true);
         closeActiveModal();
+        navigate("/map");
       })
       .catch(console.error);
   };
@@ -102,6 +112,7 @@ function App() {
   const handleLogOut = () => {
     removeToken();
     setIsLoggedIn(false);
+    closeActiveModal();
   };
 
   const handleUpdateData = (data) => {
@@ -122,16 +133,16 @@ function App() {
     auth
       .getUserInfo(jwt)
       .then((res) => {
-        setCurrentUser(res.data);
+        setCurrentUser({ ...res.data, income: Number(res.data.income) || 0 });
         setIsLoggedIn(true);
       })
       .catch(console.error);
   }, [isLoggedIn]);
 
   return (
-    <CurrentUserContext.Provider value={{ currentUser }}>
+    <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
       <AppContext.Provider value={{ isLoggedIn }}>
-        <div className="page">
+        <div className={`page ${isMapPage ? "page--no-bg" : ""}`}>
           <div className="page__content">
             <Header
               handleRegisterClick={handleRegisterClick}
@@ -153,7 +164,7 @@ function App() {
                     <Preloader />
                   ) : (
                     <ProtectedRoute isLoggedIn={isLoggedIn}>
-                      {/* <MapPage /> */}
+                      <MapPage />
                     </ProtectedRoute>
                   )
                 }
@@ -162,7 +173,7 @@ function App() {
                 path="*"
                 element={
                   isLoggedIn ? (
-                    <Navigate to="/map" replace />
+                    <Navigate to="/" replace />
                   ) : (
                     <Navigate to="/login" replace />
                   )
