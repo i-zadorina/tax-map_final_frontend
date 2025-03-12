@@ -4,7 +4,7 @@ This code is the front-end of the TaxMap app. The app shows a tax map depending 
 
 ## Technical Description
 
-This app is using React and Vite, as also API calls, to display the tax according to the localisation's tax rules.
+This app is using React and Vite, as also API calls, to display the taxes according to the location's tax rules.
 
 - [Page](https://github.com/i-zadorina/tax-map_final_frontend)
 
