@@ -1,6 +1,6 @@
 {
   "name": "tax-map_final_frontend",
-  "homepage": "https://i-zadorina.github.io/tax-map_final_frontend/",
+  "homepage": "https://tax.imapp.ir",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -10,7 +10,7 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "npm run build && scp -r ./dist/* i_s_zadorina@tax.imapp.ir:/home/i_s_zadorina/frontend"
   },
   "dependencies": {
     "@types/geojson": "^7946.0.16",
