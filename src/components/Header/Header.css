@@ -3,7 +3,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  padding: 0;
+  padding: 0.5em 0 0;
+  color: #000;
 }
 .header__left {
   display: flex;
@@ -71,11 +72,13 @@
   color: darkgreen;
   border-radius: 10px;
   border-color: darkseagreen;
+  background-color: rgb(249, 249, 249);
   text-decoration: none;
   cursor: pointer;
 }
 .header__button:hover {
   background-color: darkseagreen;
+  border-color: darkgreen;
 }
 .header__avatar-placeholder {
   color: #fff;

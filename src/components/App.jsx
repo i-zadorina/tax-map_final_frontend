@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Routes,
   Route,
@@ -18,18 +18,16 @@ import Preloader from "./Preloader/Preloader.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import * as auth from "../utils/auth.js";
 import { setToken, getToken, removeToken } from "../utils/token.js";
-import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
-import AppContext from "../contexts/AppContext.js";
+import { CurrentUserContext } from "../contexts/CurrentUserContext.jsx";
+import { AppContext } from "../contexts/AppContext.jsx";
 import "./App.css";
 
 function App() {
-  //useState hooks
+  //Hooks
   const [isLoading, setIsLoading] = useState(false);
   const [activeModal, setActiveModal] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState({
-    income: "",
-  });
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const { isLoggedIn, setIsLoggedIn } = useContext(AppContext);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -135,89 +133,86 @@ function App() {
       .then((res) => {
         setCurrentUser({ ...res.data, income: Number(res.data.income) || 0 });
         setIsLoggedIn(true);
+        navigate("/map");
       })
       .catch(console.error);
   }, [isLoggedIn]);
 
   return (
-    <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
-      <AppContext.Provider value={{ isLoggedIn }}>
-        <div className={`page ${isMapPage ? "page--no-bg" : ""}`}>
-          <div className="page__content">
-            <Header
-              handleRegisterClick={handleRegisterClick}
-              handleLoginClick={handleLoginClick}
-              handleEditDataClick={handleEditDataClick}
-              handleLogOutClick={handleLogOutClick}
-              isLoggedIn={isLoggedIn}
-            />
-            <Routes>
-              <Route
-                exact
-                path="/"
-                element={<WelcomePage handleStartClick={handleRegisterClick} />}
-              />
-              <Route
-                path="/map"
-                element={
-                  isLoading ? (
-                    <Preloader />
-                  ) : (
-                    <ProtectedRoute isLoggedIn={isLoggedIn}>
-                      <MapPage />
-                    </ProtectedRoute>
-                  )
-                }
-              />
-              <Route
-                path="*"
-                element={
-                  isLoggedIn ? (
-                    <Navigate to="/" replace />
-                  ) : (
-                    <Navigate to="/login" replace />
-                  )
-                }
-              />
-            </Routes>
-            <Footer />
-          </div>
-          {activeModal === "signup" && (
-            <Register
-              isOpen={activeModal === "signup"}
-              onClose={closeActiveModal}
-              handleRegistration={handleRegistration}
-              handleLoginClick={handleLoginClick}
-              isLoading={isLoading}
-            />
-          )}
-          {activeModal === "login" && (
-            <Login
-              isOpen={activeModal === "login"}
-              onClose={closeActiveModal}
-              isLoading={isLoading}
-              handleLogin={handleLogin}
-              handleRegisterClick={handleRegisterClick}
-            />
-          )}
-          {activeModal === "edit-data" && (
-            <EditDataModal
-              isOpen={activeModal === "edit-data"}
-              onClose={closeActiveModal}
-              updateData={handleUpdateData}
-              isLoading={isLoading}
-            />
-          )}
-          {activeModal === "logout-confirmation" && (
-            <ConfirmLogoutModal
-              isOpen={activeModal === "logout-confirmation"}
-              onClose={closeActiveModal}
-              handleLogOut={handleLogOut}
-            />
-          )}
-        </div>
-      </AppContext.Provider>
-    </CurrentUserContext.Provider>
+    <div className={`page ${isMapPage ? "page--no-bg" : ""}`}>
+      <div className="page__content">
+        <Header
+          handleRegisterClick={handleRegisterClick}
+          handleLoginClick={handleLoginClick}
+          handleEditDataClick={handleEditDataClick}
+          handleLogOutClick={handleLogOutClick}
+          isLoggedIn={isLoggedIn}
+        />
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={<WelcomePage handleStartClick={handleRegisterClick} />}
+          />
+          <Route
+            path="/map"
+            element={
+              isLoading ? (
+                <Preloader />
+              ) : (
+                <ProtectedRoute isLoggedIn={isLoggedIn}>
+                  <MapPage />
+                </ProtectedRoute>
+              )
+            }
+          />
+          <Route
+            path="*"
+            element={
+              isLoggedIn ? (
+                <Navigate to="/" replace />
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
+          />
+        </Routes>
+        <Footer />
+      </div>
+      {activeModal === "signup" && (
+        <Register
+          isOpen={activeModal === "signup"}
+          onClose={closeActiveModal}
+          handleRegistration={handleRegistration}
+          handleLoginClick={handleLoginClick}
+          isLoading={isLoading}
+        />
+      )}
+      {activeModal === "login" && (
+        <Login
+          isOpen={activeModal === "login"}
+          onClose={closeActiveModal}
+          isLoading={isLoading}
+          handleLogin={handleLogin}
+          handleRegisterClick={handleRegisterClick}
+        />
+      )}
+      {activeModal === "edit-data" && (
+        <EditDataModal
+          isOpen={activeModal === "edit-data"}
+          onClose={closeActiveModal}
+          updateData={handleUpdateData}
+          isLoading={isLoading}
+        />
+      )}
+      {activeModal === "logout-confirmation" && (
+        <ConfirmLogoutModal
+          isOpen={activeModal === "logout-confirmation"}
+          onClose={closeActiveModal}
+          handleLogOut={handleLogOut}
+        />
+      )}
+    </div>
   );
 }
 

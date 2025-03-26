@@ -11,8 +11,10 @@
   position: absolute;
   left: 160px;
   bottom: 44px;
+  color: black;
 }
 .modal__or-button:hover {
   text-decoration: underline;
   text-underline-offset: 3px;
+  opacity: 80%;
 }

@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.jsx";
 import { exchangeRatesApi } from "../../utils/api";
 import { Profile, TaxSummary } from "../../utils/taxStrategies";
 import WorldMap from "../WorldMap/WorldMap";
+import "./MapPage.css";
 
 const MapPage: React.FC = () => {
   const { currentUser } = useContext(CurrentUserContext);

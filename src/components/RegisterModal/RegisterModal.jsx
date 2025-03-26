@@ -13,7 +13,7 @@ const Register = ({
   const { values, handleChange } = useForm({
     email: "",
     password: "",
-    income: 0,
+    income: "",
     status: "",
   });
 
@@ -22,13 +22,17 @@ const Register = ({
     handleChange({
       target: {
         name,
-        value: name === "income" ? Number(value) || 0 : value,
+        value,
       },
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const preparedValues = {
+      ...values,
+      income: Number(values.income),
+    };
     handleRegistration(values);
     onClose();
   };

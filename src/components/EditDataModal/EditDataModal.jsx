@@ -1,6 +1,6 @@
 import { useEffect, useContext } from "react";
 import { useForm } from "../../hooks/UseForm";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.jsx";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 function EditDataModal({

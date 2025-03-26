@@ -13,6 +13,8 @@
   font-size: 16px;
   line-height: 1.25;
   font-weight: 700;
+  color: #000;
+  color-scheme: light dark;
 }
 .modal_opened {
   visibility: visible;
@@ -67,6 +69,7 @@
 .modal__submit:hover {
   opacity: 0.6;
   cursor: pointer;
+  border: black;
 }
 .modal__submit_disabled {
   opacity: 0.3;

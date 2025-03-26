@@ -4,6 +4,7 @@
   align-items: center;
   flex-direction: column;
   margin-bottom: 5em;
+  color: black;
 }
 .welcome__title {
   font-size: 2rem;
@@ -39,8 +40,8 @@
   box-shadow: none;
   width: 260px;
   height: 40px;
-  -webkit-perspective: 230px;
-  perspective: 2300px;
+  -webkit-perspective: 260px;
+  perspective: 260px;
 }
 .btn-start span {
   background: rgb(0, 172, 238);
