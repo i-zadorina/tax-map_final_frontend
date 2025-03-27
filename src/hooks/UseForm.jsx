@@ -1,14 +1,15 @@
 import { useState } from "react";
 
-export function useForm(inputValues) {
-  const [values, setValues] = useState(inputValues);
+export function useForm(initialValues) {
+  const [values, setValues] = useState(initialValues);
 
   const handleChange = (event) => {
-    const { value, name } = event.target;
-    setValues({
-      ...values,
-      [name]: name === "income" ? Number(value) || 0 : value,
-    });
+    const { name, value } = event.target;
+    setValues((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
+
   return { values, handleChange, setValues };
 }

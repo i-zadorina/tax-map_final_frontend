@@ -66,3 +66,9 @@
   color: black;
   cursor: pointer;
 }
+
+@media screen and (max-width: 768px) {
+  .confirm-logout-modal {
+    padding: 0 10px 10px;
+  }
+}

@@ -25,6 +25,7 @@
 }
 @media screen and (max-width: 768px) {
   .page__content {
-    padding: 1em 1em;
+    padding: 0.7em 0;
+    justify-content: flex-start;
   }
 }

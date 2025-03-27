@@ -103,3 +103,25 @@
   line-height: 1.5;
   cursor: pointer;
 }
+@media screen and (max-width: 768px) {
+  .header {
+    justify-content: space-around;
+  }
+  .header__title {
+    display: none;
+  }
+  .header__button {
+    margin: 5px;
+    padding: 3px 5px;
+  }
+  .header__income {
+    font-size: 0.9rem;
+  }
+
+  .header__current-user {
+    display: block;
+  }
+  .header__left {
+    padding-left: 12px;
+  }
+}

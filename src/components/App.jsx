@@ -28,7 +28,7 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const { isLoggedIn, setIsLoggedIn } = useContext(AppContext);
-
+  const [validationError, setValidationError] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const isMapPage = location.pathname === "/map";
@@ -104,7 +104,10 @@ function App() {
         closeActiveModal();
         navigate("/map");
       })
-      .catch(console.error);
+      .catch((err) => {
+        setValidationError(true);
+        console.log(err);
+      });
   };
 
   const handleLogOut = () => {
@@ -135,7 +138,9 @@ function App() {
         setIsLoggedIn(true);
         navigate("/map");
       })
-      .catch(console.error);
+      .catch((err) => {
+        console.error(`${err} - User is not logged in`);
+      });
   }, [isLoggedIn]);
 
   return (
@@ -195,6 +200,8 @@ function App() {
           isLoading={isLoading}
           handleLogin={handleLogin}
           handleRegisterClick={handleRegisterClick}
+          validationError={validationError}
+          setValidationError={setValidationError}
         />
       )}
       {activeModal === "edit-data" && (

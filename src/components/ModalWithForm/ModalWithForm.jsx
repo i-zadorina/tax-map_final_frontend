@@ -7,6 +7,8 @@ function ModalWithForm({
   isOpen,
   onSubmit,
   onClose,
+  validationError,
+  validationErrorText,
 }) {
   return (
     <div className={`modal ${isOpen && "modal_opened"}`}>
@@ -15,6 +17,13 @@ function ModalWithForm({
         <button onClick={onClose} className="modal__close" type="button" />
         <form className="modal__form" onSubmit={onSubmit}>
           {children}
+          {validationError ? (
+            <span className="modal__form_error-span">
+              {validationErrorText}
+            </span>
+          ) : (
+            " "
+          )}
           <button
             type="submit"
             className="modal__submit modal__submit_disabled"

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm } from "../../hooks/UseForm";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./LoginModal.css";
@@ -9,17 +10,32 @@ const Login = ({
   onClose,
   activeModal,
   isLoading,
+  validationError,
+  setValidationError,
 }) => {
-  const { values, handleChange } = useForm({
+  const { values, handleChange, setValues } = useForm({
     email: "",
     password: "",
   });
 
+  const handleInputChange = (e) => {
+    handleChange(e);
+    if (validationError) {
+      setValidationError(false);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     handleLogin(values);
-    onClose();
   };
+
+  useEffect(() => {
+    if (isOpen) {
+      setValues({ email: "", password: "" });
+      setValidationError(false);
+    }
+  }, [isOpen, setValues, setValidationError]);
 
   return (
     <ModalWithForm
@@ -29,6 +45,8 @@ const Login = ({
       isOpen={isOpen}
       onSubmit={handleSubmit}
       activeModal={activeModal}
+      validationError={validationError}
+      validationErrorText="The email or password is incorrect"
     >
       <label className="modal__input_type_email">
         <input
@@ -39,7 +57,7 @@ const Login = ({
           placeholder="Email"
           required
           value={values.email}
-          onChange={handleChange}
+          onChange={handleInputChange}
         />
       </label>
       <label className="modal__input_type_password">
@@ -51,7 +69,7 @@ const Login = ({
           placeholder="Password"
           required
           value={values.password}
-          onChange={handleChange}
+          onChange={handleInputChange}
         />
       </label>
       <button
