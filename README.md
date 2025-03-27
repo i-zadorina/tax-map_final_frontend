@@ -12,5 +12,6 @@ This app is using React and Vite, as also API calls, to display the taxes accord
 
 - [Backend](https://github.com/i-zadorina/tax-map_final_backend)
 
-Screenshot from the app:
+## Screenshot from the app:
+
 ![Screenshot from the app](image.png)
