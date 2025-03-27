@@ -2,7 +2,7 @@ import { getToken } from "./token";
 
 const baseUrl =
   process.env.NODE_ENV === "production"
-    ? "https://api.tax.imapp.ir"
+    ? "https://api.tax.mappuchan.com"
     : "http://localhost:3001";
 
 function checkResponse(res) {

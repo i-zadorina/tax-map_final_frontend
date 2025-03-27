@@ -6,8 +6,11 @@ This code is the front-end of the TaxMap app. The app shows a tax map depending 
 
 This app is using React and Vite, as also API calls, to display the taxes according to the location's tax rules.
 
-- [Page](https://tax.imapp.ir/)
+- [Page](https://tax.mappuchan.com/)
 
 - [Frontend](https://github.com/i-zadorina/tax-map_final_frontend)
 
 - [Backend](https://github.com/i-zadorina/tax-map_final_backend)
+
+Screenshot from the app:
+![Screenshot from the app](image.png)
