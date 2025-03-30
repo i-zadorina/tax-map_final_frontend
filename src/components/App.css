@@ -1,0 +1,31 @@
+.page {
+  background-color: #f3f3f3;
+  height: 100vh;
+  overflow: hidden;
+  background-image: url("../assets/map.png");
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  background-blend-mode: overlay;
+}
+.page--no-bg {
+  background-image: none;
+}
+.page__content {
+  height: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 2.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  line-height: 1.2;
+  font-weight: 700;
+  font-family: "Grotesk", Arial, sans-serif;
+}
+@media screen and (max-width: 768px) {
+  .page__content {
+    padding: 0.7em 0;
+    justify-content: flex-start;
+  }
+}

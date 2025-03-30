@@ -1,0 +1,20 @@
+.modal__or-button {
+  padding: 0;
+  font-family: "Grotesk", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.25;
+  font-weight: 700;
+  opacity: 50%;
+  border: none;
+  background: none;
+  cursor: pointer;
+  position: absolute;
+  left: 160px;
+  bottom: 44px;
+  color: black;
+}
+.modal__or-button:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  opacity: 80%;
+}

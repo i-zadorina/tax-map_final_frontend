@@ -1,0 +1,74 @@
+.confirm-logout-modal {
+  min-width: fit-content;
+  min-height: fit-content;
+  background-color: white;
+  border-radius: 15px;
+  position: relative;
+  padding: 0 60px 20px;
+}
+
+.confirm-logout-modal__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 40px;
+}
+.confirm-logout-modal__container p {
+  margin-top: 0;
+}
+.confirm-logout-modal__buttons {
+  display: flex;
+  gap: 50px;
+}
+.confirm-logout-modal__delete {
+  background-color: transparent;
+  border: none;
+  color: #ff4d00;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.confirm-logout-modal__close:hover {
+  opacity: 0.6;
+}
+
+.confirm-logout-modal__cancel {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.confirm-logout-modal__cancel:hover {
+  opacity: 0.6;
+}
+
+.confirm-logout-modal__text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.small {
+  font-weight: 500;
+}
+.confirm-logout-modal__close-btn {
+  background-color: transparent;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  background-image: url("../../assets/close.svg");
+  height: 15px;
+  width: 15px;
+  border: none;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: black;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .confirm-logout-modal {
+    padding: 0 10px 10px;
+  }
+}
