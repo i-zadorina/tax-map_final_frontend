@@ -7,7 +7,7 @@
   color: black;
 }
 .welcome__title {
-  font-size: 2rem;
+  font-size: 32px;
   font-weight: 700;
   text-align: center;
   margin: 1.5em auto 0.8em;
@@ -16,6 +16,7 @@
   text-align: center;
   margin: 0.8em auto 1.8em;
   width: 70%;
+  font-size: 18px;
 }
 .welcome-btn {
   width: 260px;
@@ -27,21 +28,15 @@
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
-  display: inline-block;
   box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
     7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
   outline: none;
 }
 .btn-start {
-  position: relative;
-  right: 20px;
-  bottom: 20px;
   border: none;
   box-shadow: none;
   width: 260px;
   height: 40px;
-  -webkit-perspective: 260px;
-  perspective: 260px;
 }
 .btn-start span {
   background: rgb(0, 172, 238);
@@ -86,15 +81,13 @@
   transform-origin: 50% 50% -20px;
 }
 .btn-start:hover span:nth-child(1) {
-  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
-    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: none !important;
   -webkit-transform: rotateX(0deg);
   -moz-transform: rotateX(0deg);
   transform: rotateX(0deg);
 }
 .btn-start:hover span:nth-child(2) {
-  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
-    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: none !important;
   color: transparent;
   -webkit-transform: rotateX(-90deg);
   -moz-transform: rotateX(-90deg);
@@ -114,7 +107,7 @@
 
 @media screen and (max-width: 768px) {
   .welcome__title {
-    font-size: 1.7rem;
+    font-size: 28px;
   }
   .welcome__subtitle {
     width: 90%;
