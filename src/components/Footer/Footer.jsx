@@ -19,7 +19,7 @@ function Footer() {
         rel="noopener noreferrer"
         className="footer__link"
       >
-        Worldwide Personal Tax and Immigration Guide 2023-24
+        Worldwide Personal Tax and Immigration Guide 2023-2024
       </a>
     </footer>
   );

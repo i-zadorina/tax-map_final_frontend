@@ -3,18 +3,18 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-bottom: 5em;
-  color: black;
+  margin: 1rem auto 10rem;
+  color: #222;
 }
 .welcome__title {
   font-size: 32px;
   font-weight: 700;
   text-align: center;
-  margin: 1.5em auto 0.8em;
+  margin: 1.5rem auto;
 }
 .welcome__subtitle {
   text-align: center;
-  margin: 0.8em auto 1.8em;
+  margin: 1.8rem auto;
   width: 70%;
   font-size: 18px;
 }
@@ -23,20 +23,20 @@
   height: 40px;
   color: #fff;
   border-radius: 5px;
-  padding: 10px 25px;
   background: transparent;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
   box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
     7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
-  outline: none;
+  outline: none !important;
 }
 .btn-start {
   border: none;
   box-shadow: none;
   width: 260px;
   height: 40px;
+  outline: none !important;
 }
 .btn-start span {
   background: rgb(0, 172, 238);
@@ -49,7 +49,7 @@
   align-items: center;
   justify-content: center;
   position: absolute;
-  width: 260px;
+  width: 14rem;
   height: 40px;
   box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
     7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
@@ -68,17 +68,17 @@
   -webkit-transform: rotateX(90deg);
   -moz-transform: rotateX(90deg);
   transform: rotateX(90deg);
-  -webkit-transform-origin: 50% 50% -20px;
-  -moz-transform-origin: 50% 50% -20px;
-  transform-origin: 50% 50% -20px;
+  -webkit-transform-origin: 50% 50% 20px;
+  -moz-transform-origin: 50% 50% 20px;
+  transform-origin: 50% 50% 20px;
 }
 .btn-start span:nth-child(2) {
   -webkit-transform: rotateX(0deg);
   -moz-transform: rotateX(0deg);
   transform: rotateX(0deg);
-  -webkit-transform-origin: 50% 50% -20px;
-  -moz-transform-origin: 50% 50% -20px;
-  transform-origin: 50% 50% -20px;
+  -webkit-transform-origin: 50% 50% 20px;
+  -moz-transform-origin: 50% 50% 20px;
+  transform-origin: 50% 50% 20px;
 }
 .btn-start:hover span:nth-child(1) {
   box-shadow: none !important;
@@ -110,6 +110,6 @@
     font-size: 28px;
   }
   .welcome__subtitle {
-    width: 90%;
+    width: 85%;
   }
 }
