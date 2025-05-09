@@ -1,6 +1,6 @@
 .modal {
   position: fixed;
-  top: 0;
+  top: -100px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -77,4 +77,13 @@
 .modal__form_error-span {
   color: red;
   font-size: 0.8em;
+  font-weight: 500;
+}
+@media screen and (max-width: 768px) {
+  .modal {
+    top: -285px;
+  }
+  .modal__content {
+    width: 90%;
+  }
 }

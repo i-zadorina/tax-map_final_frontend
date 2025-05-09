@@ -5,11 +5,14 @@ const baseUrl =
     ? "https://api.tax.mappuchan.com"
     : "http://localhost:3002";
 
-function checkResponse(res) {
+async function checkResponse(res) {
+  const data = await res.json();
+
   if (res.ok) {
-    return res.json();
+    return data;
   }
-  return Promise.reject(`Error: ${res.status}`);
+
+  return Promise.reject(new Error(data.message));
 }
 
 const request = (url, options) => {

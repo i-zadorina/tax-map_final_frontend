@@ -6,6 +6,7 @@ import { countries } from "../../utils/countries";
 import { exchangeRatesApi } from "../../utils/api";
 import { Profile, TaxSummary } from "../../utils/taxStrategies";
 import Tooltip from "../Tooltip/Tooltip";
+import "./WorldMap.css";
 
 const width = 960;
 const height = 600;
@@ -33,14 +34,18 @@ interface WorldMapProps {
 }
 
 const WorldMap: React.FC<WorldMapProps> = ({ profile, exchangeRates }) => {
-  const svgRef = useRef<SVGSVGElement | null>(null);
+  const [isZoomed, setIsZoomed] = useState(false);
   const [geoData, setGeoData] = useState<Country[]>([]);
   const [tooltip, setTooltip] = useState<{
     content: string;
     x: number;
     y: number;
   } | null>(null);
-
+  const svgRef = useRef<SVGSVGElement | null>(null);
+  const zoomBehavior = useRef<d3.ZoomBehavior<SVGSVGElement, unknown> | null>(null);
+  const projection = useRef(d3.geoMercator());
+  const path = useRef(d3.geoPath().projection(projection.current));
+  
   useEffect(() => {
     if (Object.keys(exchangeRates).length === 0) return;
 
@@ -76,33 +81,39 @@ const WorldMap: React.FC<WorldMapProps> = ({ profile, exchangeRates }) => {
 
   useEffect(() => {
     if (!geoData.length || !svgRef.current) return;
-
     const svg = d3.select(svgRef.current);
-    const projection = d3
-      .geoMercator()
-      .scale(150)
-      .translate([width / 2, height / 1.5]);
-    const path = d3.geoPath().projection(projection);
-    const colorScale = d3
-      .scaleSequential(d3.interpolateRgb("#96d363", "#b80707"))
-      .domain([0, 0.8]);
+  
+    const { width, height } = svgRef.current.getBoundingClientRect();
 
-    svg
-      .selectAll(".country")
+    projection.current.fitSize(
+      [width, height],
+      {
+        type: "FeatureCollection",
+        features: geoData,
+      } as FeatureCollection<Geometry>
+    );
+    const colorScale = d3
+    .scaleSequential(d3.interpolateRgb("#96d363", "#b80707"))
+    .domain([0, 0.8]);
+    
+    const g = svg.select("g");
+    const geoPath = path.current;
+
+    g.selectAll(".country")
       .data(geoData)
       .join("path")
       .attr("class", "country")
-      .attr("d", path as any)
+      .attr("d", geoPath as any)
       .attr("fill", (d: Country) => {
         const value = d.properties.taxSummary?.percentage;
         return value === undefined ? "#d3d1d1" : colorScale(value);
       })
       .on("mouseover", function (event, feature) {
         const { name, taxSummary } = feature.properties;
+        const noticeText = taxSummary?.notice || "";
         const rate = taxSummary?.percentage
           ? (taxSummary.percentage * 100).toFixed(2) + "%*"
-          : "No data";
-        const noticeText = taxSummary?.notice || "";
+          : "";
         const link = taxSummary?.link
           ? `<a href="${taxSummary.link}" target="_blank">More details...</a>`
           : "";
@@ -150,11 +161,94 @@ const WorldMap: React.FC<WorldMapProps> = ({ profile, exchangeRates }) => {
           d3.select(this).classed("hovered", false);
         }, 300);
       });
+
+      const bounds = geoPath.bounds({
+        type: "FeatureCollection",
+        features: geoData,
+      } as FeatureCollection<Geometry>);
+      
+      const [[x0, y0], [x1, y1]] = geoPath.bounds({
+        type: "FeatureCollection",
+        features: geoData,
+      } as FeatureCollection<Geometry>);
+      
+      zoomBehavior.current = d3.zoom<SVGSVGElement, unknown>()
+        .scaleExtent([1, 8])
+        .translateExtent([
+          [x0, y0],
+          [x1, y1],
+        ])
+        .on("zoom", (event) => {
+          g.attr("transform", event.transform);
+          setIsZoomed(event.transform.k !== 1);
+        });
+
+      svg.call(zoomBehavior.current);
   }, [geoData]);
+  
+  const resetZoom = () => {
+    if (!svgRef.current || !zoomBehavior.current) return;
+  
+    const svg = d3.select(svgRef.current);
+    const g = svg.select("g");
+    const { width, height } = svgRef.current.getBoundingClientRect();
+
+    projection.current.fitSize([width, height], {
+      type: "FeatureCollection",
+      features: geoData,
+    } as FeatureCollection<Geometry>); 
+
+    g.selectAll(".country")
+      .attr("d", path.current as any);
+
+    svg.transition()
+      .duration(500)
+      .call(zoomBehavior.current.transform, d3.zoomIdentity);
+  
+    setIsZoomed(false);
+  };
+
+  const zoomStep = (scaleFactor: number) => {
+    if (!svgRef.current || !zoomBehavior.current) return;
+  
+    const svg = d3.select(svgRef.current);
+    const { width, height } = svgRef.current.getBoundingClientRect();
+    const center = [width / 2, height / 2];
+
+    svg.transition()
+      .duration(500)
+      .call(zoomBehavior.current.scaleBy, scaleFactor, center);
+};
+  
+  useEffect(() => {
+    const handleResize = () => {
+      resetZoom();
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);  
 
   return (
-    <div style={{ position: "relative" }}>
-      <svg ref={svgRef} width={width} height={height}></svg>
+    <div className="map-container">
+      <svg
+          ref={svgRef}
+          width="100%"
+          height="120%"
+          preserveAspectRatio="xMidYMid meet"
+        >
+          <g></g>
+        </svg>
+        <div className="zoom-controls">
+          <button onClick={() => zoomStep(1.2)}>+</button>
+          <button onClick={() => zoomStep(1 / 1.2)}>–</button>
+            {isZoomed ? (
+              <button className="reset-zoom-button" onClick={resetZoom}>
+                Reset Zoom
+              </button>
+            ) : (
+              <div className="reset-zoom-placeholder"></div>
+            )}
+        </div>
       {tooltip && <Tooltip {...tooltip} setTooltip={setTooltip} />}
     </div>
   );

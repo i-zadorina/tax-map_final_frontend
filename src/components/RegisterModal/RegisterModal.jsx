@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm } from "../../hooks/UseForm";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./RegisterModal.css";
@@ -9,8 +10,10 @@ const Register = ({
   handleLoginClick,
   activeModal,
   isLoading,
+  validationErrorText,
+  setValidationErrorText,
 }) => {
-  const { values, handleChange } = useForm({
+  const { values, handleChange, setValues } = useForm({
     email: "",
     password: "",
     income: "",
@@ -34,8 +37,14 @@ const Register = ({
       income: Number(values.income),
     };
     handleRegistration(values);
-    onClose();
   };
+
+  useEffect(() => {
+      if (isOpen) {
+        setValues({ email: "", password: "", income: "", status: "" });
+        setValidationErrorText("");
+      }
+    }, [isOpen, setValues, setValidationErrorText]);
 
   return (
     <ModalWithForm
@@ -45,6 +54,8 @@ const Register = ({
       isOpen={isOpen}
       onSubmit={handleSubmit}
       activeModal={activeModal}
+      validationError={!!validationErrorText}
+      validationErrorText={validationErrorText}
     >
       <label className="modal__input_type_email">
         <input

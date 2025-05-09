@@ -1,0 +1,54 @@
+.map-container{
+    position: relative;
+    overflow: hidden;
+    width: 100%; 
+    height: 85vh;
+}
+.zoom-controls {
+    position: absolute;
+    bottom: 50px;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    z-index: 10;
+}
+.zoom-controls button {
+    border-radius: 10px;
+    border-color: darkseagreen;
+    background-color: rgb(249, 249, 249);
+    padding: 5px 10px;
+    width: fit-content;
+    cursor: pointer;
+    text-decoration: none;
+    color: darkgreen;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+}
+.zoom-controls button:hover {
+    background-color: darkseagreen;
+    border-color: darkgreen;
+}
+.reset-zoom-button{
+    height: 36px;
+}
+.reset-zoom-placeholder {
+    visibility: hidden;
+    height: 36px;
+  }
+  
+@media screen and (max-width: 768px) {
+    .map-container{
+        height: 75vh;
+    }
+    .zoom-controls {
+        bottom: 150px;
+    }
+    .zoom-controls button {
+        padding: 4px 8px;
+    }
+    .map-container svg {
+        height: 80%;
+      }
+}

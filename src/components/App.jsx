@@ -28,7 +28,7 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const { isLoggedIn, setIsLoggedIn } = useContext(AppContext);
-  const [validationError, setValidationError] = useState(false);
+  const [validationErrorText, setValidationErrorText] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const isMapPage = location.pathname === "/map";
@@ -78,14 +78,15 @@ function App() {
   // SignUp, Login
   const handleRegistration = ({ email, password, income, status }) => {
     const numberIncome = Number(income);
+    setValidationErrorText("");
     auth
       .signUp({ email, password, income: numberIncome, status })
       .then(() => {
         handleLogin({ email, password });
-        closeActiveModal();
-        navigate("/map");
       })
-      .catch(console.error);
+      .catch((err) => {
+        setValidationErrorText(err.message);
+      });
   };
 
   const handleLogin = ({ email, password }) => {
@@ -105,8 +106,7 @@ function App() {
         navigate("/map");
       })
       .catch((err) => {
-        setValidationError(true);
-        console.log(err);
+        setValidationErrorText(err.message);
       });
   };
 
@@ -191,6 +191,8 @@ function App() {
           handleRegistration={handleRegistration}
           handleLoginClick={handleLoginClick}
           isLoading={isLoading}
+          validationErrorText={validationErrorText}
+          setValidationErrorText={setValidationErrorText}
         />
       )}
       {activeModal === "login" && (
@@ -200,8 +202,8 @@ function App() {
           isLoading={isLoading}
           handleLogin={handleLogin}
           handleRegisterClick={handleRegisterClick}
-          validationError={validationError}
-          setValidationError={setValidationError}
+          validationErrorText={validationErrorText}
+          setValidationErrorText={setValidationErrorText}
         />
       )}
       {activeModal === "edit-data" && (

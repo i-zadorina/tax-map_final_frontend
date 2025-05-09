@@ -10,20 +10,13 @@ const Login = ({
   onClose,
   activeModal,
   isLoading,
-  validationError,
-  setValidationError,
+  validationErrorText,
+  setValidationErrorText,
 }) => {
   const { values, handleChange, setValues } = useForm({
     email: "",
     password: "",
   });
-
-  const handleInputChange = (e) => {
-    handleChange(e);
-    if (validationError) {
-      setValidationError(false);
-    }
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,9 +26,9 @@ const Login = ({
   useEffect(() => {
     if (isOpen) {
       setValues({ email: "", password: "" });
-      setValidationError(false);
+      setValidationErrorText("");
     }
-  }, [isOpen, setValues, setValidationError]);
+  }, [isOpen, setValues, setValidationErrorText]);
 
   return (
     <ModalWithForm
@@ -45,7 +38,7 @@ const Login = ({
       isOpen={isOpen}
       onSubmit={handleSubmit}
       activeModal={activeModal}
-      validationError={validationError}
+      validationError={!!validationErrorText}
       validationErrorText="The email or password is incorrect"
     >
       <label className="modal__input_type_email">
@@ -57,7 +50,7 @@ const Login = ({
           placeholder="Email"
           required
           value={values.email}
-          onChange={handleInputChange}
+          onChange={handleChange}
         />
       </label>
       <label className="modal__input_type_password">
@@ -69,7 +62,7 @@ const Login = ({
           placeholder="Password"
           required
           value={values.password}
-          onChange={handleInputChange}
+          onChange={handleChange}
         />
       </label>
       <button

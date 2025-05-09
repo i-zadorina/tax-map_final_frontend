@@ -81,9 +81,8 @@ button:focus-visible {
 }
 .country {
   stroke: #fff;
-  stroke-width: 0.5;
+  stroke-width: .2;
 }
-
 .tooltip {
   position: absolute;
   text-align: center;
@@ -97,7 +96,6 @@ button:focus-visible {
   opacity: 0;
   transition: opacity 0.3s;
 }
-
 .tooltip.showing {
   opacity: 0.8;
   display: block;
