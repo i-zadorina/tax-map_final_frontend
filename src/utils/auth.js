@@ -1,6 +1,6 @@
 import { getToken } from "./token";
 
-const baseUrl = process.env.REACT_APP_API_BASE || "http://localhost:3002";
+const baseUrl = process.env.REACT_APP_API_BASE
 
 async function checkResponse(res) {
   const data = await res.json();
