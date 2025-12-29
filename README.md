@@ -7,7 +7,7 @@ This code is the front-end of the TaxMap app. The app shows a tax map depending 
 This app is using React and Vite, as also API calls, to display the taxes according to the location's tax rules.
 Originally deployed on Google Cloud (Cloud Run + APIs).
 
-- [Page](https://tax.mappuchan.com/)
+- [Page](https://taxesmap.net/)
 
 - [Frontend](https://github.com/i-zadorina/tax-map_final_frontend)
 
