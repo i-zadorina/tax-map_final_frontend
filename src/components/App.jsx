@@ -13,7 +13,7 @@ import Footer from './Footer/Footer';
 import Register from './RegisterModal/RegisterModal.jsx';
 import Login from './Login/LoginModal';
 import EditDataModal from './EditDataModal/EditDataModal.jsx';
-import ConfirmLogoutModal from './ConfirmLogoutModal/ConfirmLogoutModal.jsx';
+import ConfirmLogOutModal from './ConfirmLogOutModal/ConfirmLogOutModal.jsx';
 import Preloader from './Preloader/Preloader.jsx';
 import ProtectedRoute from './ProtectedRoute.jsx';
 import * as auth from '../utils/auth.js';
@@ -217,7 +217,7 @@ function App() {
         />
       )}
       {activeModal === 'logout-confirmation' && (
-        <ConfirmLogoutModal
+        <ConfirmLogOutModal
           isOpen={activeModal === 'logout-confirmation'}
           onClose={closeActiveModal}
           handleLogOut={handleLogOut}
