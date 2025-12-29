@@ -1,9 +1,6 @@
 import { getToken } from "./token";
 
-const baseUrl =
-  process.env.NODE_ENV === "production"
-    ? "https://api.taxesmap.net"
-    : "http://localhost:3002";
+const baseUrl = process.env.NODE_ENV || "http://localhost:3002";
 
 async function checkResponse(res) {
   const data = await res.json();
