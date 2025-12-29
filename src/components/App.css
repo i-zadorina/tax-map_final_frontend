@@ -3,8 +3,8 @@ button:active, button:focus {
 }
 .page {
   background-color: #f3f3f3;
-  height: 100vh;
-  overflow: hidden;
+   min-height: 100vh; 
+  overflow: visible; 
   background-image: url("../assets/map.png");
   background-size: cover;
   background-position: center;
@@ -17,6 +17,7 @@ button:active, button:focus {
 }
 .page__content {
   max-width: 980px;
+  min-height: 100vh; 
   margin: 0 auto;
   padding: 0 2.5em;
   display: flex;
@@ -26,9 +27,14 @@ button:active, button:focus {
   font-weight: 700;
   font-family: "Grotesk", Arial, sans-serif;
 }
-@media screen and (max-width: 768px) {
+.main{
+  display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+@media screen and (max-width: 640px) {
   .page__content {
     padding: .8em;
-    justify-content: flex-start;
+    /* justify-content: flex-start; */
   }
 }

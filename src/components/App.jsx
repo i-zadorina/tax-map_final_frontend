@@ -1,53 +1,53 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from 'react';
 import {
   Routes,
   Route,
   Navigate,
   useNavigate,
   useLocation,
-} from "react-router-dom";
-import Header from "./Header/Header.jsx";
-import WelcomePage from "./WelcomePage/WelcomePage.jsx";
-import MapPage from "./MapPage/MapPage.tsx";
-import Footer from "./Footer/Footer";
-import Register from "./RegisterModal/RegisterModal.jsx";
-import Login from "./Login/LoginModal";
-import EditDataModal from "./EditDataModal/EditDataModal.jsx";
-import ConfirmLogoutModal from "./ConfirmLogoutModal/ConfirmLogoutModal.jsx";
-import Preloader from "./Preloader/Preloader.jsx";
-import ProtectedRoute from "./ProtectedRoute.jsx";
-import * as auth from "../utils/auth.js";
-import { setToken, getToken, removeToken } from "../utils/token.js";
-import { CurrentUserContext } from "../contexts/CurrentUserContext.jsx";
-import { AppContext } from "../contexts/AppContext.jsx";
-import "./App.css";
+} from 'react-router-dom';
+import Header from './Header/Header.jsx';
+import WelcomePage from './WelcomePage/WelcomePage.jsx';
+import MapPage from './MapPage/MapPage.tsx';
+import Footer from './Footer/Footer';
+import Register from './RegisterModal/RegisterModal.jsx';
+import Login from './Login/LoginModal';
+import EditDataModal from './EditDataModal/EditDataModal.jsx';
+import ConfirmLogoutModal from './ConfirmLogoutModal/ConfirmLogoutModal.jsx';
+import Preloader from './Preloader/Preloader.jsx';
+import ProtectedRoute from './ProtectedRoute.jsx';
+import * as auth from '../utils/auth.js';
+import { setToken, getToken, removeToken } from '../utils/token.js';
+import { CurrentUserContext } from '../contexts/CurrentUserContext.jsx';
+import { AppContext } from '../contexts/AppContext.jsx';
+import './App.css';
 
 function App() {
   //Hooks
   const [isLoading, setIsLoading] = useState(false);
-  const [activeModal, setActiveModal] = useState("");
+  const [activeModal, setActiveModal] = useState('');
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const { isLoggedIn, setIsLoggedIn } = useContext(AppContext);
-  const [validationErrorText, setValidationErrorText] = useState("");
+  const [validationErrorText, setValidationErrorText] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
-  const isMapPage = location.pathname === "/map";
+  const isMapPage = location.pathname === '/map';
 
   //Clicks
   const handleLoginClick = () => {
-    setActiveModal("login");
+    setActiveModal('login');
   };
   const handleRegisterClick = () => {
-    setActiveModal("signup");
+    setActiveModal('signup');
   };
   const handleEditDataClick = () => {
-    setActiveModal("edit-data");
+    setActiveModal('edit-data');
   };
   const handleLogOutClick = () => {
-    setActiveModal("logout-confirmation");
+    setActiveModal('logout-confirmation');
   };
   const closeActiveModal = () => {
-    setActiveModal("");
+    setActiveModal('');
   };
 
   // handle Escape&Overlay Close
@@ -55,15 +55,15 @@ function App() {
     if (!activeModal) return;
 
     const handleEscClose = (e) => {
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         closeActiveModal();
       }
     };
 
-    document.addEventListener("keydown", handleEscClose);
+    document.addEventListener('keydown', handleEscClose);
 
     return () => {
-      document.removeEventListener("keydown", handleEscClose);
+      document.removeEventListener('keydown', handleEscClose);
     };
   }, [activeModal]);
 
@@ -72,13 +72,13 @@ function App() {
       closeActiveModal();
     }
   };
-  document.addEventListener("click", handleOverlay);
-  document.removeEventListener("click", handleOverlay);
+  document.addEventListener('click', handleOverlay);
+  document.removeEventListener('click', handleOverlay);
 
   // SignUp, Login
   const handleRegistration = ({ email, password, income, status }) => {
     const numberIncome = Number(income);
-    setValidationErrorText("");
+    setValidationErrorText('');
     auth
       .signUp({ email, password, income: numberIncome, status })
       .then(() => {
@@ -103,7 +103,7 @@ function App() {
         setCurrentUser({ ...user.data, income: Number(user.data.income) || 0 });
         setIsLoggedIn(true);
         closeActiveModal();
-        navigate("/map");
+        navigate('/map');
       })
       .catch((err) => {
         setValidationErrorText(err.message);
@@ -136,7 +136,7 @@ function App() {
       .then((res) => {
         setCurrentUser({ ...res.data, income: Number(res.data.income) || 0 });
         setIsLoggedIn(true);
-        navigate("/map");
+        navigate('/map');
       })
       .catch((err) => {
         console.error(`${err} - User is not logged in`);
@@ -144,7 +144,7 @@ function App() {
   }, [isLoggedIn]);
 
   return (
-    <div className={`page ${isMapPage ? "page--no-bg" : ""}`}>
+    <div className={`page ${isMapPage ? 'page--no-bg' : ''}`}>
       <div className="page__content">
         <Header
           handleRegisterClick={handleRegisterClick}
@@ -153,40 +153,42 @@ function App() {
           handleLogOutClick={handleLogOutClick}
           isLoggedIn={isLoggedIn}
         />
-        <Routes>
-          <Route
-            exact
-            path="/"
-            element={<WelcomePage handleStartClick={handleRegisterClick} />}
-          />
-          <Route
-            path="/map"
-            element={
-              isLoading ? (
-                <Preloader />
-              ) : (
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <MapPage />
-                </ProtectedRoute>
-              )
-            }
-          />
-          <Route
-            path="*"
-            element={
-              isLoggedIn ? (
-                <Navigate to="/" replace />
-              ) : (
-                <Navigate to="/login" replace />
-              )
-            }
-          />
-        </Routes>
+        <main className="main">
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={<WelcomePage handleStartClick={handleRegisterClick} />}
+            />
+            <Route
+              path="/map"
+              element={
+                isLoading ? (
+                  <Preloader />
+                ) : (
+                  <ProtectedRoute isLoggedIn={isLoggedIn}>
+                    <MapPage />
+                  </ProtectedRoute>
+                )
+              }
+            />
+            <Route
+              path="*"
+              element={
+                isLoggedIn ? (
+                  <Navigate to="/" replace />
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              }
+            />
+          </Routes>
+        </main>
         <Footer />
       </div>
-      {activeModal === "signup" && (
+      {activeModal === 'signup' && (
         <Register
-          isOpen={activeModal === "signup"}
+          isOpen={activeModal === 'signup'}
           onClose={closeActiveModal}
           handleRegistration={handleRegistration}
           handleLoginClick={handleLoginClick}
@@ -195,9 +197,9 @@ function App() {
           setValidationErrorText={setValidationErrorText}
         />
       )}
-      {activeModal === "login" && (
+      {activeModal === 'login' && (
         <Login
-          isOpen={activeModal === "login"}
+          isOpen={activeModal === 'login'}
           onClose={closeActiveModal}
           isLoading={isLoading}
           handleLogin={handleLogin}
@@ -206,17 +208,17 @@ function App() {
           setValidationErrorText={setValidationErrorText}
         />
       )}
-      {activeModal === "edit-data" && (
+      {activeModal === 'edit-data' && (
         <EditDataModal
-          isOpen={activeModal === "edit-data"}
+          isOpen={activeModal === 'edit-data'}
           onClose={closeActiveModal}
           updateData={handleUpdateData}
           isLoading={isLoading}
         />
       )}
-      {activeModal === "logout-confirmation" && (
+      {activeModal === 'logout-confirmation' && (
         <ConfirmLogoutModal
-          isOpen={activeModal === "logout-confirmation"}
+          isOpen={activeModal === 'logout-confirmation'}
           onClose={closeActiveModal}
           handleLogOut={handleLogOut}
         />

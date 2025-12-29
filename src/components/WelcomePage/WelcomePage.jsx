@@ -1,4 +1,4 @@
-import "./WelcomePage.css";
+import './WelcomePage.css';
 
 const WelcomePage = ({ handleStartClick }) => {
   return (
@@ -10,9 +10,15 @@ const WelcomePage = ({ handleStartClick }) => {
         Use our TaxMap to check how much personal income tax&nbsp;(PIT) you will
         pay in your next country*
       </h3>
-      <button onClick={handleStartClick} className="welcome-btn btn-start">
-        <span>Click!</span>
-        <span>Let's get started!</span>
+      <button
+        onClick={handleStartClick}
+        className="welcome-btn btn-start flip-btn"
+      >
+        <span className="flip" aria-hidden="true">
+          <span className="face front">Let's get started!</span>
+          <span className="face back">Click!</span>
+        </span>
+        <span className="sr-only">Let's get started!</span>
       </button>
     </div>
   );
