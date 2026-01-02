@@ -1,7 +1,7 @@
-import { useEffect } from "react";
-import { useForm } from "../../hooks/UseForm";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import "./RegisterModal.css";
+import { useEffect } from 'react';
+import { useForm } from '../../hooks/UseForm';
+import ModalWithForm from '../ModalWithForm/ModalWithForm';
+import './RegisterModal.css';
 
 const Register = ({
   isOpen,
@@ -14,10 +14,10 @@ const Register = ({
   setValidationErrorText,
 }) => {
   const { values, handleChange, setValues } = useForm({
-    email: "",
-    password: "",
-    income: "",
-    status: "",
+    email: '',
+    password: '',
+    income: '',
+    status: '',
   });
 
   const handleChangeNumber = (e) => {
@@ -40,19 +40,20 @@ const Register = ({
   };
 
   useEffect(() => {
-      if (isOpen) {
-        setValues({ email: "", password: "", income: "", status: "" });
-        setValidationErrorText("");
-      }
-    }, [isOpen, setValues, setValidationErrorText]);
+    if (isOpen) {
+      setValues({ email: '', password: '', income: '', status: '' });
+      setValidationErrorText('');
+    }
+  }, [isOpen, setValues, setValidationErrorText]);
 
   return (
     <ModalWithForm
       titleText="Sign Up"
-      buttonText={isLoading ? "Signing up..." : "Sign Up"}
+      buttonText={isLoading ? 'Signing up...' : 'Sign Up'}
       onClose={onClose}
       isOpen={isOpen}
       onSubmit={handleSubmit}
+      isLoading={isLoading}
       activeModal={activeModal}
       validationError={!!validationErrorText}
       validationErrorText={validationErrorText}
@@ -88,7 +89,7 @@ const Register = ({
           id="income"
           placeholder="Annual income, $*"
           required
-          value={values.income || ""}
+          value={values.income || ''}
           onChange={handleChangeNumber}
           name="income"
         />
@@ -103,7 +104,7 @@ const Register = ({
             className="modal__radio-input"
             value="single"
             required
-            checked={values.status === "single"}
+            checked={values.status === 'single'}
             onChange={handleChange}
           />
           <span className="modal__radio-text">Single</span>
@@ -116,7 +117,7 @@ const Register = ({
             className="modal__radio-input"
             value="married"
             required
-            checked={values.status === "married"}
+            checked={values.status === 'married'}
             onChange={handleChange}
           />
           <span className="modal__radio-text">Married</span>

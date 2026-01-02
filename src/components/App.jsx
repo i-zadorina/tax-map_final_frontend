@@ -48,6 +48,7 @@ function App() {
   };
   const closeActiveModal = () => {
     setActiveModal('');
+    setIsLoading(false);
   };
 
   // handle Escape&Overlay Close
@@ -67,47 +68,52 @@ function App() {
     };
   }, [activeModal]);
 
-  const handleOverlay = (e) => {
-    if (e.target === e.currentTarget) {
-      closeActiveModal();
-    }
-  };
-  document.addEventListener('click', handleOverlay);
-  document.removeEventListener('click', handleOverlay);
-
   // SignUp, Login
-  const handleRegistration = ({ email, password, income, status }) => {
-    const numberIncome = Number(income);
+  const handleLogin = async ({ email, password }) => {
+    if (!email || !password) return;
+
+    setIsLoading(true);
     setValidationErrorText('');
-    auth
-      .signUp({ email, password, income: numberIncome, status })
-      .then(() => {
-        handleLogin({ email, password });
-      })
-      .catch((err) => {
-        setValidationErrorText(err.message);
-      });
+
+    try {
+      const res = await auth.login({ email, password });
+      setToken(res.token);
+
+      const user = await auth.getUserInfo(res.token);
+      setCurrentUser({ ...user.data, income: Number(user.data.income) || 0 });
+
+      setIsLoggedIn(true);
+      closeActiveModal();
+      navigate('/map');
+    } catch (err) {
+      setValidationErrorText(err?.message || 'Login failed');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleLogin = ({ email, password }) => {
-    if (!email || !password) {
-      return;
+  const handleRegistration = async ({ email, password, income, status }) => {
+    setIsLoading(true);
+    setValidationErrorText('');
+
+    try {
+      const numberIncome = Number(income);
+      await auth.signUp({ email, password, income: numberIncome, status });
+
+      const res = await auth.login({ email, password });
+      setToken(res.token);
+
+      const user = await auth.getUserInfo(res.token);
+      setCurrentUser({ ...user.data, income: Number(user.data.income) || 0 });
+
+      setIsLoggedIn(true);
+      closeActiveModal();
+      navigate('/map');
+    } catch (err) {
+      setValidationErrorText(err?.message || 'Sign up failed');
+    } finally {
+      setIsLoading(false);
     }
-    auth
-      .login({ email, password })
-      .then((res) => {
-        setToken(res.token);
-        return auth.getUserInfo(res.token);
-      })
-      .then((user) => {
-        setCurrentUser({ ...user.data, income: Number(user.data.income) || 0 });
-        setIsLoggedIn(true);
-        closeActiveModal();
-        navigate('/map');
-      })
-      .catch((err) => {
-        setValidationErrorText(err.message);
-      });
   };
 
   const handleLogOut = () => {

@@ -1,7 +1,7 @@
-import { useEffect } from "react";
-import { useForm } from "../../hooks/UseForm";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import "./LoginModal.css";
+import { useEffect } from 'react';
+import { useForm } from '../../hooks/UseForm';
+import ModalWithForm from '../ModalWithForm/ModalWithForm';
+import './LoginModal.css';
 
 const Login = ({
   isOpen,
@@ -14,8 +14,8 @@ const Login = ({
   setValidationErrorText,
 }) => {
   const { values, handleChange, setValues } = useForm({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const handleSubmit = (e) => {
@@ -25,18 +25,19 @@ const Login = ({
 
   useEffect(() => {
     if (isOpen) {
-      setValues({ email: "", password: "" });
-      setValidationErrorText("");
+      setValues({ email: '', password: '' });
+      setValidationErrorText('');
     }
   }, [isOpen, setValues, setValidationErrorText]);
 
   return (
     <ModalWithForm
       titleText="Log In"
-      buttonText={isLoading ? "Logging..." : "Log In"}
+      buttonText={isLoading ? 'Logging in...' : 'Log In'}
       onClose={onClose}
       isOpen={isOpen}
       onSubmit={handleSubmit}
+      isLoading={isLoading}
       activeModal={activeModal}
       validationError={!!validationErrorText}
       validationErrorText="The email or password is incorrect"
