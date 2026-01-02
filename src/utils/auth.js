@@ -1,9 +1,11 @@
 import { getToken } from './token';
 
-const baseUrl = process.env.REACT_APP_API_BASE || 'http://localhost:3002';
+const apiBase =
+  import.meta.env.VITE_API_BASE_URL ??
+  (import.meta.env.DEV ? 'http://localhost:3002' : undefined);
 
-if (!baseUrl) {
-  throw new Error('REACT_APP_API_BASE is not defined');
+if (!apiBase) {
+  throw new Error('Missing VITE_API_BASE_URL (required in production)');
 }
 
 async function checkResponse(res) {
@@ -20,7 +22,7 @@ async function checkResponse(res) {
 }
 
 const request = (url, options) =>
-  fetch(`${baseUrl}/${url}`, options).then(checkResponse);
+  fetch(`${apiBase}/${url}`, options).then(checkResponse);
 
 const signUp = ({ email, password, income, status }) => {
   return request('signup', {
